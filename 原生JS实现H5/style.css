@@ -1,0 +1,175 @@
+* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				margin: 0;
+				padding: 0;
+				height: 100vh;
+				overflow: hidden;
+				/*溢出隐藏，隐藏滚动条*/
+				font-size: 16px;
+
+			}
+
+			#pages {
+				width: 100vw;
+				/*height:500vh;*/
+
+				position: absolute;
+				top: 0;
+				left: 0;
+				transition: all 1s;
+			}
+
+			#pages>div {
+				width: 100vw;
+				height: 100vh;
+				position: relative;
+			}
+
+			#page1 {
+				background-image: url('images/1.gif');
+				background-size: cover;
+			}
+			
+			.btn-up{
+				background-image: url(images/arrow_up.png);
+				background-position: center 0;
+				background-size: cover;
+				width:4rem;
+				height:2.5rem;
+				position: absolute;
+				bottom:2rem;
+				left:50%;
+				margin-left: -2rem;
+			}
+
+			#p1-1 {
+				font-size: 4rem;
+				color: #fff;
+				font-weight: bold;
+				width: 4rem;
+				position: absolute;
+				left: 15rem;
+				top: 5rem;
+				/*name duration timing-function delay iteration-count direction fill-mode play-state;*/
+				/*animation: p1-1-move 0.3s ease-in 0s 1 normal;*/
+	
+			}
+
+			#p1-2 {
+				font-size: 1.5rem;
+				color: #fff;
+				font-weight: bold;
+				width: 12.75rem;
+				position: absolute;
+				left: 50vw;
+				top: 50vh;
+				margin: -1rem 0 0 -6.5rem;
+				transform: scale(0,0);
+				/*animation: p1-2-scale 0.5s ease-in 0.5s 1 normal forwards;*/
+				/*
+				注意：animation-fill-mode:forwards
+				*/
+			}
+
+			#p1-3 {
+				font-size: 4rem;
+				color: #fff;
+				font-weight: bold;
+				width: 4rem;
+				position: absolute;
+				left: 4rem;
+				top: 27rem;
+				/*animation: p1-3-move 0.3s ease-in 0s 1 normal;*/
+			}
+			
+			@keyframes p1-1-move{
+				from{left: 25rem;top: 5rem;}
+				to{left: 15rem;top: 5rem;}
+			}
+			@keyframes p1-2-scale{
+				from{transform: scale(0,0);}
+				to{transform: scale(1,1);}
+			}
+			
+			@keyframes p1-3-move{
+				from{left: -5rem;top: 27rem;}
+				to{left: 4rem;top: 27rem;}
+			}
+			
+			
+			/*第二页*/
+			#page2{
+				background-image: url('images/bg2.jpg');
+				background-size: cover;
+			}
+			#p2-box{
+				padding: 10px;
+			}
+			#p2-1{
+				width:100%;
+				object-fit: cover;
+				height: 14rem;
+			}
+			
+			#p2-2{
+				display: flex;
+			}
+			#p2-2-1{
+				flex:1;
+				height: 8rem;
+				box-sizing: border-box;
+				margin: 0 2.5px 0 0 ;
+			}
+			
+			#p2-2-2{
+				flex:1;
+				height: 8rem;
+				box-sizing: border-box;
+				margin: 0 0 0 2.5px;
+			}
+			#p2-2-1 img,#p2-2-2 img{
+				object-fit: cover;
+				height: 8rem;
+				width:100%;
+			}
+			
+			#p2-3{
+				clear: both;
+				margin: 20px 0;
+				color:#ffc;
+				opacity: 0; /*初始隐藏*/
+			}
+			
+			#p2-quantou{
+				background-image: url(images/quantou.png);
+				background-size: cover;
+				width:6rem;
+				height:6rem;
+				position: absolute;
+				left:18rem;
+				top:33rem;
+			}
+			
+			@keyframes p2-1-move{
+				from{transform:translateY(-14rem);}
+				to{transform:translateY(0rem);}
+			}
+			
+			@keyframes p2-2-1-move{
+				from{transform:translateX(-100%);}
+				to{transform:translateX(0%);}
+			}
+			
+			@keyframes p2-2-2-move{
+				from{transform:translateX(100%);}
+				to{transform:translateX(0%);}
+			}
+			
+			@keyframes p2-3-ani{
+				from{opacity: 0;}
+				to{opacity: 1;}
+			}

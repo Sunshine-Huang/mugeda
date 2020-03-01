@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Document</title>
+		<link href="style.css" type="text/css" rel="stylesheet" />
+	</head>
+
+	<body>
+
+		<!--
+        author:Kingeric
+		-->
+
+		<div id="pages">
+
+			<!--第一页开始-->
+			<div id="page1">
+				<div id="p1-1" class="ani" data-aniType="auto" data-ani="p1-1-move 0.3s ease-in 0s 1 normal;">武汉</div>
+				<div id="p1-2" class="ani" data-aniType="auto" data-ani="p1-2-scale 0.5s ease-in 0.5s 1 normal forwards;">
+					<p>加油武汉-加油中国</p>
+					<p>众志成城-战胜病魔</p>
+				</div>
+				<div id="p1-3" class="ani" data-aniType="auto" data-ani="p1-3-move 0.3s ease-in 0s 1 normal;">加油</div>
+
+				<div class="btn-up" onclick="gotoNextPage()"></div>
+			</div>
+			<!--第一页结束-->
+
+			<!--第二页开始-->
+			<div id="page2">
+
+				<div id="p2-box">
+					<img id="p2-1" src="images/01.jpg" class="ani" data-aniType="auto"  data-ani="p2-1-move 0.3s ease-in 0s 1 normal;"/>
+					<div id="p2-2">
+						<div id="p2-2-1" class="ani" data-aniType="auto" data-ani="p2-2-1-move 0.3s ease-in 0s 1 normal;"><img src="images/02.jpg" /></div>
+						<div id="p2-2-2" class="ani" data-aniType="auto" data-ani="p2-2-2-move 0.3s ease-in 0s 1 normal;"><img src="images/03.jpg" /></div>
+					</div>
+					<div id="p2-3" class="ani" data-aniType="auto"  data-ani="p2-3-ani 1s ease-in 0.3s 1 normal forwards;">
+						<p>
+							“我们的城市生病了，但我们齐心协力，一定能努力治好她！”加油武汉！加油中国！武汉人民你们别怕，湖北人民你们别怕，全国人民你们别怕，我们要时刻记着：你的身后有个强大的祖国！更何况，还有那么多的人站在你的身后替你负重前行！加油！
+						</p>
+					</div>
+				</div>
+				
+				<div id="p2-quantou"></div>
+				
+				<div class="btn-up" onclick="gotoNextPage()"></div>
+			</div>
+			<!--第二页结束-->
+
+
+			<div>
+				3
+			</div>
+			<div>
+				4
+			</div>
+			<div>
+				5
+			</div>
+		</div>
+
+		<script>
+			//封装函数
+			function $(id) {
+				return document.getElementById(id);
+			}
+
+			//全局变量
+			var pageIndex = 0; //当前在第几页
+			var startY = 0;
+			var endY = 0;
+
+			//初始化
+			function init() {
+				var pages = $('pages').children;
+
+				//设定总高度
+				$('pages').style.height = (pages.length * 100) + 'vh';
+
+				//初始化当前页面，方便制作调试
+				$('pages').style.transform = 'translate(0,-' + pageIndex * 100 + 'vh)';
+
+				//默认播放初始页面的动画
+				pageAniPlay(pageIndex);
+
+				//给每个页面绑定触摸事件,不用滑动
+				/* for (var i = 0; i < pages.length; i++) {
+					pages[i].addEventListener('touchstart', function(e) {
+						startY = e.touches[0].pageY; //记录下开始拖动的Y坐标点
+					});
+
+
+					pages[i].addEventListener('touchend', function(e) {
+						endY = e.changedTouches[0].pageY; //记录下结束拖动的Y坐标点
+						if (pageIndex == 0 || pageIndex == pages.length - 1) { //在最后一页禁止再上滑或在第一页禁止下滑
+							return;
+						}
+
+						if (endY < startY) { //上滑动
+							pageIndex++;
+						} else if (endY > startY) {
+							pageIndex--;
+						}
+						$('pages').style.transform = 'translate(0,-' + pageIndex * 100 + 'vh)';
+					});
+				} */
+			}
+
+			init();
+
+			//跳转到第几页
+			function gotoPage(index) {
+				pageIndex = index;
+				$('pages').style.transform = 'translate(0,-' + pageIndex * 100 + 'vh)';
+
+				//延迟1s再运行该页面的动画，页面切换设定有1s的时间过程
+				setTimeout(function() {
+					pageAniPlay(pageIndex);
+				}, 1000)
+			}
+			//跳转到下一页
+			function gotoNextPage() {
+				pageIndex++;
+				gotoPage(pageIndex);
+			}
+
+			//获取自定义属性，针对data-*属性
+			function getDefAttrVal(obj, name) {
+				return obj.getAttribute('data-' + name);
+			} 
+
+			//播放页面的动画
+			function pageAniPlay(index) {
+				var objs = $('page' + (index + 1)).querySelectorAll('.ani');
+				for (var i = 0; i < objs.length; i++) {
+					var aniType = getDefAttrVal(objs[i], 'aniType'); //动画类型
+					var ani = getDefAttrVal(objs[i], 'ani'); //动画方式
+					if (aniType == 'auto') {
+						//objs[i].style.animation = ani;//无法这样设置
+						objs[i].setAttribute('style', 'animation:' + ani);
+					}
+				}
+			}
+		</script>
+
+	</body>
+
+</html>

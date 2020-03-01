@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        body {
+            margin:0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;/*溢出隐藏，隐藏滚动条*/
+
+            
+            
+        }
+
+        #pages {
+            width: 100vw;
+            /*height:500vh;*/
+
+            position:absolute;
+            top:0;left:0;
+            transition: all 1s;
+        }
+
+        #pages>div {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        @keyframes touchMove{
+        }
+    </style>
+</head>
+
+<body>
+
+    <!--
+        原理，通过CSS3实现整体的偏移实现
+    -->
+
+    <div id="pages">
+        <div>
+            1
+        </div>
+        <div>
+            2
+        </div>
+        <div>
+            3
+        </div>
+        <div>
+            4
+        </div>
+        <div>
+            5
+        </div>
+    </div>
+
+    <script>
+        //封装函数
+        function $(id) {
+            return document.getElementById(id);
+        }
+
+        //全局变量
+        var pageIndex = 0;//当前在第几页
+        var startY = 0;
+        var endY = 0;
+
+        //初始化
+        function init() {
+            var pages = $('pages').children;
+
+            //设定总高度
+            $('pages').style.height = (pages.length * 100) + 'vh';
+
+            //给每个页面绑定触摸事件
+            for(var i=0;i<pages.length;i++){
+                pages[i].addEventListener('touchstart',function(e){
+                    startY = e.touches[0].pageY; //记录下开始拖动的Y坐标点
+                });
+                
+
+                pages[i].addEventListener('touchend',function(e){
+                    endY = e.changedTouches[0].pageY; //记录下结束拖动的Y坐标点
+                    if(endY<startY){//上滑动
+                        if(pageIndex==pages.length-1){//在最后一页禁止再上滑
+                            return;
+                        }
+                        pageIndex++;
+                        $('pages').style.transform='translate(0,-'+pageIndex*100+'vh)';//使用transform实现
+                        //$('pages').style.top='-100vh';//使用绝对定位实现
+                    }else if(endY>startY){
+                        if(pageIndex==0){
+                            return;
+                        }
+                        pageIndex--;
+                        $('pages').style.transform='translate(0,-'+pageIndex*100+'vh)';
+                    }
+                });
+            }
+        }
+
+        init();
+
+    </script>
+
+</body>
+
+</html>
